@@ -1,4 +1,4 @@
-* The TTC 2013 Flowgraphs Case
+# The TTC 2013 Flowgraphs Case
 
 This project is a case proposition for the
 [6th Transformation Tool Contest](http://planet-sl.org/ttc2013) that will take
