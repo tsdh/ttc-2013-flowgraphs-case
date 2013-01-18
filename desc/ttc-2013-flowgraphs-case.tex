@@ -1,4 +1,4 @@
-\documentclass[10pt]{article}
+\documentclass[11pt]{article}
 
 \usepackage{xltxtra}
 \usepackage{fontspec}
@@ -230,7 +230,7 @@ public static void testMethod(int a) {
     }
 }
   \end{minted}
-  \caption{An example Java method}
+  \caption{An example Java method (\texttt{Test1.java})}
   \label{lst:sg-ex}
 \end{listing}
 
@@ -241,12 +241,11 @@ Appendix~\ref{sec:result-models}.
 \subsection{Task 2: Control Flow Graph}
 \label{sec:task2-cf-graph}
 
-While the first task requested a model-to-model transformation dealing with the
-structure of Java programs, the transformation of this task is an in-place
-transformation that integrates the semantics of the Java programming language
-into the structure graphs created by the previous transformation.  The task is
-to perform an intra-procedural control flow analysis.  Any statement should be
-connected to the statement that follows it in the method's control flow.
+This task deals with an in-place transformation problem.  The semantics of the
+Java programming language should be integrated into the structure graphs
+created by the previous transformation.  The task is to perform an
+intra-procedural control flow analysis.  Any statement should be connected to
+the statement that follows it in the method's control flow.
 
 Figure~\ref{fig:control-flow-mm} shows the relevant metamodel excerpt.
 
@@ -317,27 +316,25 @@ public static void testMethod(int a) {
     }
 }
   \end{minted}
-  \caption{An example Java method with complex control flow}
+  \caption{An example Java method with complex control flow
+    (\texttt{Test2.java})}
   \label{lst:java-ex-cf}
 \end{listing}
 
 It's structure graph that is the result of task 1's transformation is the input
 to the control flow transformation.  The result control flow model is
 visualized in Figure~\ref{fig:cfg-test2} in Appendix~\ref{sec:result-models}.
-
-In case you haven't tackled task 1 yet, it
-is also included in this project as \verb|results/Test2-StructureGraph.xmi|.
-The control flow transformation should create a model equivalent to
-\verb|results/Test2-ControlFlowGraph.xmi|.
+In case you haven't tackled task 1 yet, it is also included in this project as
+\verb|results/Test2-StructureGraph.xmi|.  The control flow transformation
+should create a model equivalent to \verb|results/Test2-ControlFlowGraph.xmi|.
 
 
 \subsection{Task 3: Data Flow Graph}
 \label{sec:task3-df-graph}
 
-In task 2, the topic was intra-procedural control flow analysis.  In this task,
-an intra-procedural data flow analysis should be performed.  This can be done
-based on the control flow graph, but currently, one important piece of
-information is missing from it: for every flow instruction, we need to know
+In this task, an intra-procedural data flow analysis should be performed.  This
+can be done based on the control flow graph, but currently, one important piece
+of information is missing from it: for every flow instruction, we need to know
 which variables it reads and writes.  Therefore, this task is twofold:
 
 \begin{compactenum}
@@ -394,9 +391,10 @@ control flow predecessors $m$ that define a variable which is used by $n$.  Or
 formally:
 
 \begin{align*}
-  n \rightarrow_{dfNext} m  \iff {} & def(n) \cap use(m) \neq \emptyset\\
+  m \rightarrow_{dfNext} n  \iff {} & def(n) \cap use(m) \neq \emptyset\\
   ~\land {} & \exists~Path~m = n_0 \rightarrow_{cfNext} ... \rightarrow_{cfNext} n_k = n:\\
-  & \left(def(n) \cap use(m)\right) \setminus \left(\bigcup_{0 < i < k} def(n_i)\right) \neq \emptyset
+  & \left(def(n) \cap use(m)\right) \setminus \left(\bigcup_{0 < i < k}
+    def(n_i)\right) \neq \emptyset
 \end{align*}
 
 That is, $n$ uses at least one variable defined by $m$, and there is a control
@@ -468,16 +466,37 @@ two \verb|i++;| statements.  As a result, for all PDGs generated from them, the
 \verb|txt| attribute can be used to uniquely identify any object.  This will be
 true for any additional methods that might be used for evaluation.
 
-For example, such a specification could be written like in the following
-listing.
+For example, such a specification for the method shown in
+Listing~\ref{lst:java-ex-df} could be written like in
+Listing~\ref{lst:example-validation}.
 
+\begin{listing}
 \begin{verbatim}
-cfNext: "testMethod()"   --> "int i = a * 2;"
-cfNext: "int i = a * 2;" --> "i > a"
-...                      --> ...
-dfNext: "i++;"           --> "i > a"
-dfNext: "i++;"           --> "i++;"
+cfNext: "testMethod()"   --> "int a = 1;"
+cfNext: "int a = 1;"     --> "int b = 2;"
+cfNext: "int b = 2;"     --> "int c = a + b;"
+cfNext: "int c = a + b;" --> "a = c;"
+cfNext: "a = c;"         --> "b = a;"
+cfNext: "b = a;"         --> "c = a / b;"
+cfNext: "c = a / b;"     --> "b = a - b;"
+cfNext: "b = a - b;"     --> "return b * c;"
+cfNext: "return b * c;"  --> "Exit"
+
+dfNext: "int a = 1;"     --> "int c = a + b;"
+dfNext: "int b = 2;"     --> "int c = a + b;"
+dfNext: "int c = a + b;" --> "a = c;"
+dfNext: "a = c;"         --> "b = a;"
+dfNext: "a = c;"         --> "c = a / b;"
+dfNext: "a = c;"         --> "b = a - b;"
+dfNext: "b = a;"         --> "c = a / b;"
+dfNext: "b = a;"         --> "b = a - b;"
+dfNext: "c = a / b;"     --> "return b * c;"
+dfNext: "b = a - b;"     --> "return b * c;"
 \end{verbatim}
+  \caption{An example textual DSL for validating the program dependence graph
+    of the method shown in Listing~\ref{lst:java-ex-df}}
+  \label{lst:example-validation}
+\end{listing}
 
 There's no restrictions on the actual syntax except that it should be easy to
 write for a Java programmer.
@@ -501,8 +520,8 @@ might be the one that tipps the scales.
 
 To score a task, voters should take into account the following criteria.  The
 most important one is \emph{completeness \& correctness}, so it is weighted
-with 50\%.  Another important factor weighted with 30\% is \emph{conciseness \%
-  understandability}.  Lastly, the efficiency of the solution is another
+with 50\%.  Another important factor weighted with 30\% is \emph{conciseness \&
+  understandability}.  Lastly, the \emph{efficiency} of the solution is another
 criterium that's weighted with the remaining 20\%.  To evaluate the latter,
 further much larger Java methods and corresponding models for test-driving the
 solutions will be provided.  Of course, those will use only the exactly same
