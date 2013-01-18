@@ -1,0 +1,14 @@
+.hg/
+.hgignore
+desc/auto/
+*.aux
+*.bbl
+*.blg
+*.log
+*.out
+*.synctex.gz
+bin/
+models/*.java.xmi
+models/*.ecore
+models/java/
+models/sun/

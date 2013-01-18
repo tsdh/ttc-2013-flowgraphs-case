@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="ASCII"?>
+<xmi:XMI xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:flowgraph="http://flowgraph/1.0">
+  <flowgraph:Method txt="testMethod()">
+    <stmts xsi:type="flowgraph:SimpleStmt" txt="int i = 100;"/>
+    <stmts xsi:type="flowgraph:Loop" txt="while">
+      <expr txt="i > 0"/>
+      <body xsi:type="flowgraph:Block" txt="\{...\}">
+        <stmts xsi:type="flowgraph:Loop" txt="while">
+          <expr txt="i > 50"/>
+          <body xsi:type="flowgraph:Block" txt="\{...\}">
+            <stmts xsi:type="flowgraph:SimpleStmt" txt="i = i - 10;"/>
+            <stmts xsi:type="flowgraph:If" txt="if">
+              <expr txt="i == 50"/>
+              <then xsi:type="flowgraph:Break" txt="break;"/>
+            </stmts>
+          </body>
+        </stmts>
+        <stmts xsi:type="flowgraph:SimpleStmt" txt="i--;"/>
+      </body>
+    </stmts>
+    <exit txt="Exit"/>
+  </flowgraph:Method>
+  <flowgraph:Exit txt="Exit"/>
+  <flowgraph:SimpleStmt txt="int i = 100;"/>
+  <flowgraph:Loop txt="while">
+    <expr txt="i > 0"/>
+    <body xsi:type="flowgraph:Block" txt="\{...\}">
+      <stmts xsi:type="flowgraph:Loop" txt="while">
+        <expr txt="i > 50"/>
+        <body xsi:type="flowgraph:Block" txt="\{...\}">
+          <stmts xsi:type="flowgraph:SimpleStmt" txt="i = i - 10;"/>
+          <stmts xsi:type="flowgraph:If" txt="if">
+            <expr txt="i == 50"/>
+            <then xsi:type="flowgraph:Break" txt="break;"/>
+          </stmts>
+        </body>
+      </stmts>
+      <stmts xsi:type="flowgraph:SimpleStmt" txt="i--;"/>
+    </body>
+  </flowgraph:Loop>
+  <flowgraph:Expr txt="i > 0"/>
+  <flowgraph:Block txt="\{...\}">
+    <stmts xsi:type="flowgraph:Loop" txt="while">
+      <expr txt="i > 50"/>
+      <body xsi:type="flowgraph:Block" txt="\{...\}">
+        <stmts xsi:type="flowgraph:SimpleStmt" txt="i = i - 10;"/>
+        <stmts xsi:type="flowgraph:If" txt="if">
+          <expr txt="i == 50"/>
+          <then xsi:type="flowgraph:Break" txt="break;"/>
+        </stmts>
+      </body>
+    </stmts>
+    <stmts xsi:type="flowgraph:SimpleStmt" txt="i--;"/>
+  </flowgraph:Block>
+  <flowgraph:Loop txt="while">
+    <expr txt="i > 50"/>
+    <body xsi:type="flowgraph:Block" txt="\{...\}">
+      <stmts xsi:type="flowgraph:SimpleStmt" txt="i = i - 10;"/>
+      <stmts xsi:type="flowgraph:If" txt="if">
+        <expr txt="i == 50"/>
+        <then xsi:type="flowgraph:Break" txt="break;"/>
+      </stmts>
+    </body>
+  </flowgraph:Loop>
+  <flowgraph:Expr txt="i > 50"/>
+  <flowgraph:Block txt="\{...\}">
+    <stmts xsi:type="flowgraph:SimpleStmt" txt="i = i - 10;"/>
+    <stmts xsi:type="flowgraph:If" txt="if">
+      <expr txt="i == 50"/>
+      <then xsi:type="flowgraph:Break" txt="break;"/>
+    </stmts>
+  </flowgraph:Block>
+  <flowgraph:SimpleStmt txt="i = i - 10;"/>
+  <flowgraph:If txt="if">
+    <expr txt="i == 50"/>
+    <then xsi:type="flowgraph:Break" txt="break;"/>
+  </flowgraph:If>
+  <flowgraph:Expr txt="i == 50"/>
+  <flowgraph:Break txt="break;"/>
+  <flowgraph:SimpleStmt txt="i--;"/>
+</xmi:XMI>
