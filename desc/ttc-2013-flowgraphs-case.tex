@@ -51,7 +51,8 @@
 
   The tasks build upon each other, but the transformation case project also
   provides all intermediate models, thus making it possible to skip tasks that
-  are not suited for a particular tool.
+  are not suited for a particular tool, or for parallelizing the work among
+  members of participating teams.
 
   All models and metamodels are provided in the EMF/Ecore format.  However,
   user's of other modeling frameworks are also encouraged to participate.
@@ -67,20 +68,21 @@ transformation tool's flexibility.  Therefore, the different tasks require
 several different transformation capabilities.
 
 Task 1 deals with a typical model-to-model transformation problem.  Given an
-abstract syntax graph of a Java program comforming to the very detailed EMFText
-JaMoPP metamodel \cite{jamopp09}, a new model, the structure graph of the
-original program, conforming to a much more abstract and simple metamodel has
-to be generated.  Embedded in this task is a model-to-text transformation.  In
-the JaMoPP model, a simple statement like \verb|int i = a + b;| is expressed as
-a whole bunch of interrelated objects.  In the target model, we only want one
+abstract syntax graph of a Java program conforming to the very detailed
+EMFText\footnote{\url{http://www.emftext.org/index.php/EMFText}} JaMoPP
+metamodel \cite{jamopp09}, a new model, the structure graph of the original
+program, conforming to a much more abstract and simple metamodel has to be
+generated.  Embedded in this task is a model-to-text transformation.  In the
+JaMoPP model, a simple statement like \verb|int i = a + b;| is expressed as a
+whole bunch of interrelated objects.  In the target model, we only want one
 single \verb|SimpleStmt|, but its \verb|txt| attribute should be set to the
 original Java syntax: \verb|int i = a + b;|.
 
 In task 2, the structure graph resulting from task 1 should be enhanced with
 control flow information, i.e., every statement or expression has to be
-connected with its possible successors as defined by the Java semantics
-\cite{Java7Spec}.  This is an in-place transformation task that's suited for
-graph transformation tools but can also be tackled algorithmically.
+connected with its possible control flow successors as defined by the Java
+semantics \cite{Java7Spec}.  This is an in-place transformation task which is
+suited for graph transformation tools but can also be tackled algorithmically.
 
 Task 3 is similar to task 2 from a technical point of view, that is, it is also
 an in-place transformation.  Based on the control flow graph resulting from
@@ -98,7 +100,7 @@ you are using?
 Because every task builds upon the results of previous tasks, the intermediate
 models are also provided to allow participants to defer or skip tasks not
 particulary suited for their tools, or to allow teams for developing solutions
-in parallel.  For this reason, there are also no \emph{core} and
+in parallel.  For this reason, there is no distinction between \emph{core} and
 \emph{extension} tasks.  To participate, only one arbitrary task has to be
 solved, but of course scoring high presumably requires solving more tasks.
 
@@ -120,7 +122,7 @@ The case project is available on GitHub\footnote{This case's project:
 \verb|desc| contains the case description your are reading right now.
 
 The \verb|metamodel| directory contains the target metamodel as Ecore file
-(\verb|FlowGraph.ecore|) including PDF images with several views of it focusing
+(\verb|FlowGraph.ecore|) including PDF images with several views on it focusing
 on the specific tasks.  \verb|StructureGraph.pdf| shows the target metamodel of
 task 1, \verb|ControlFlowGraph.pdf| shows the metamodel classes important for
 task 2, and \verb|DataFlowGraph.pdf| shows the metamodel classes important for
@@ -140,11 +142,11 @@ Initially, the \verb|models| directory is empty.  Top-level, there're scripts
 (for Windows).  When being run, they use JaMoPP to parse all Java files in
 \verb|src| and create corresponding models (file extension \verb|java.xmi|) in
 \verb|models|.  Those are valid source models for task 1.  Additionally, the
-JaMoPP parser also serializes the JaMoPP metamodel next to the model files.  It
-is called \verb|java.ecore|\footnote{It'll also create a file
+JaMoPP parser serializes the JaMoPP metamodel next to the model files.  It is
+called \verb|java.ecore|\footnote{It'll also create a file
   \texttt{layout.ecore} containing classes that can be used to annotate
   abstract syntax graphs with layout information such as indentation, but this
-  is of no importance for this case.}.
+  is of no importance for this case.} and the source metamodel of task 1.
 
 The \verb|results| folder contains all intermediate and final target models
 including visualizations.  You can use them to validate your own results, or
@@ -159,7 +161,7 @@ that will be used for scoring the solutions during the evaluation.
 
 The first task requires writing a model-to-model transformation.  The source
 models are the Java abstract syntax graphs conforming to the JaMoPP metamodel
-that are created by the \verb$gen-models-from-src.[sh|bat]$ scripts.  The
+that are created by the \verb$gen-models-from-src.{sh,bat}$ scripts.  The
 JaMoPP metamodel covers the complete syntax of Java 7.  However, to restrict
 the size of the transformation, the elements actually contained in the source
 models is very limited.  For every \verb|*.java| file, the corresponding model
@@ -183,13 +185,13 @@ Figure~\ref{fig:structure-graph-mm}.
   \label{fig:structure-graph-mm}
 \end{figure}
 
-The structure graph metamodel is very similar to the original JaMoPP metamodel
-from a structural point of view.  The major difference is that statements and
+The metamodel is very similar to the original JaMoPP metamodel from a
+structural point of view.  The major difference is that statements and
 expressions are represented as one single object instead of being split up any
 further.  Another difference is that every \verb|Method| has exactly one
 \verb|Exit|.  There is no correspondence in Java, but it's a synthetic element
-added in favour of task 3.  No matter how a method is exited, the last object
-in a method's control flow graph is the method's \verb|Exit|.
+added in favour of task 2.  No matter how a method is exited, the last object
+in a method's control flow graph is this method's \verb|Exit| object.
 
 All metamodel classes extend the abstract \verb|Item| class, even the class
 \verb|Expr| although not visible in Figure~\ref{fig:structure-graph-mm} because
@@ -200,17 +202,17 @@ syntax of the statement or expression, that is, there is a model-to-text
 transformation embedded in this model-to-model transformation.  For example,
 for a local variable statement with a decimal integer literal as initial value
 like \verb|int i = 17;| in the JaMoPP model, a \verb|SimpleStmt| has to be
-created and its \verb|txt| attribute has to be set to \verb|int i = 17;|.
+created and its \verb|txt| attribute has to be set to \verb|"int i = 17;"|.
 Exceptions from this rule are all structured statements: the \verb|txt| value
-of a \verb|Block| is always \verb|{...}|, the value for an \verb|If| is always
-\verb|if|, the value for a \verb|Method| with name \verb|foo| is always
-\verb|foo()| (no matter of the parameters).  The artificial \verb|Exit| objects
-should have the value \verb|Exit| set.
+of a \verb|Block| is always \verb|"{...}"|, the value for an \verb|If| is
+always \verb|"if"|, the value for a \verb|Loop| is always \verb|"while"|, the
+value for a \verb|Method| with name \verb|foo| is always \verb|"foo()"| (no
+matter it there are parameters).  The artificial \verb|Exit| objects should
+have the value \verb|"Exit"| set.
 
-With the exception of \verb|Break| and \verb|Continue| objects referring to
-their target \verb|Label|, the structure graphs created by the transformation
-are simple trees that reflect the containment relationships of the method and
-its statements.
+With the exception of \verb|Break| and \verb|Continue| objects that might refer
+to a target \verb|Label|, the structure graphs created by the transformation
+are simple trees that reflect the containment hierarchy of the method.
 
 For example, Listing~\ref{lst:sg-ex} shows the method defined in
 \verb|Test1.java|.
@@ -244,8 +246,8 @@ Appendix~\ref{sec:result-models}.
 This task deals with an in-place transformation problem.  The semantics of the
 Java programming language should be integrated into the structure graphs
 created by the previous transformation.  The task is to perform an
-intra-procedural control flow analysis.  Any statement should be connected to
-the statement that follows it in the method's control flow.
+intra-procedural control flow analysis.  Any instruction should be connected to
+the instruction following it in the control flow.
 
 Figure~\ref{fig:control-flow-mm} shows the relevant metamodel excerpt.
 
@@ -264,10 +266,9 @@ the transformation has to synthesize from the structure graph.
 
 Blocks, labels, loops, and if-statements don't participate in the control flow.
 Instead, when control flow reaches a block, the first flow instruction in the
-block is the control flow successor of the previous flow instruction.
-
-Since blocks may be nested in other blocks, the \emph{first} flow instruction
-is actually the first one reachable by a depth-first search.  This \emph{first}
+block is the control flow successor of the previous flow instruction.  Since
+blocks may be nested in other blocks, the \emph{first} flow instruction is
+actually the first one reachable by a depth-first search.  These \emph{first}
 semantics apply to whole description of this task.
 
 In case of a label, the first flow instruction in the statement which is
@@ -289,15 +290,16 @@ flow successor.
 
 The most complex control flow rules apply to the jump statements \verb|Break|
 and \verb|Continue|.  Without a target label, the control flow successor of a
-\verb|Break| is the first flow instruction in the statement following the
-immediately surrounding loop, and the successor of a \verb|Continue| is the
-test expression of the immediately surrounding loop.  With a target label
-\verb|x|, the control flow successor of a \verb|Break| is the first flow
-instruction in the statement after the statement labeled \verb|x|, and the
-successor of a \verb|Continue| is the the expression of the surrounding loop
-labeled \verb|x|\footnote{Interestingly, using \texttt{break x;} it is possible
-  to jump out of a block labeled \texttt{x}, i.e., in contrast to
-  \texttt{continue}, the labeled statement doesn't need to be a loop.}.
+\verb|Break| is the first flow instruction following the immediately
+surrounding loop, and the successor of a \verb|Continue| is the test expression
+of the immediately surrounding loop.  With a target label \verb|x|, the control
+flow successor of a \verb|Break| is the first flow instruction following the
+statement labeled \verb|x|, and the successor of a \verb|Continue| is the
+expression of the surrounding loop labeled \verb|x|\footnote{Interestingly,
+  using \texttt{break x;} it is possible to jump out of any statement labeled
+  \texttt{x}, i.e., in contrast to \texttt{continue}, the labeled statement
+  doesn't need to be a loop.}.
+
 
 The method in Listing~\ref{lst:java-ex-cf} is the method defined in
 \verb|Test2.java|.
@@ -322,11 +324,11 @@ public static void testMethod(int a) {
 \end{listing}
 
 It's structure graph that is the result of task 1's transformation is the input
-to the control flow transformation.  The result control flow model is
-visualized in Figure~\ref{fig:cfg-test2} in Appendix~\ref{sec:result-models}.
-In case you haven't tackled task 1 yet, it is also included in this project as
-\verb|results/Test2-StructureGraph.xmi|.  The control flow transformation
-should create a model equivalent to \verb|results/Test2-ControlFlowGraph.xmi|.
+to the control flow transformation.  In case you haven't tackled task 1 yet, it
+is also included in this project as \verb|results/Test2-StructureGraph.xmi|.
+The result control flow model is visualized in Figure~\ref{fig:cfg-test2} in
+Appendix~\ref{sec:result-models}.  The control flow transformation should
+create a model equivalent to \verb|results/Test2-ControlFlowGraph.xmi|.
 
 
 \subsection{Task 3: Data Flow Graph}
@@ -344,7 +346,7 @@ which variables it reads and writes.  Therefore, this task is twofold:
   reads and writes.
 \item Write a data flow transformation taking the control flow graph resulting
   from applying task 2's transformation on the result of the enhanced
-  java-to-structure-graph transformation, that synthesizes data flow links.
+  java-to-structure-graph transformation that synthesizes data flow links.
 \end{compactenum}
 
 The relevant metamodel excerpt is shown in Figure~\ref{fig:data-flow-mm}.
@@ -387,13 +389,13 @@ developed in this subtask.
 
 It's sole purpose is to synthesize \verb|dfNext| links.  For every flow
 instruction $n$, a \verb|dfNext| link has to be created from all nearest
-control flow predecessors $m$ that define a variable which is used by $n$.  Or
-formally:
+control flow predecessors $m$ that define a variable which is used by $n$.
+Formally:
 
 \begin{align*}
-  m \rightarrow_{dfNext} n  \iff {} & def(n) \cap use(m) \neq \emptyset\\
+  m \rightarrow_{dfNext} n  \iff {} & def(m) \cap use(n) \neq \emptyset\\
   ~\land {} & \exists~Path~m = n_0 \rightarrow_{cfNext} ... \rightarrow_{cfNext} n_k = n:\\
-  & \left(def(n) \cap use(m)\right) \setminus \left(\bigcup_{0 < i < k}
+  & \left(def(m) \cap use(n)\right) \setminus \left(\bigcup_{0 < i < k}
     def(n_i)\right) \neq \emptyset
 \end{align*}
 
@@ -411,9 +413,9 @@ from this task which include control and data flow information are called
 optimization phase in compilers \cite{Ferrante:1987:PDG:24039.24041}.
 
 The method defined in \verb|Test0.java| is shown in
-Listing~\ref{lst:java-ex-df}.  The program dependence graph that this subtasks
-transformation has to generate is visualized in Figure~\ref{fig:pdg-test0} in
-Appendix~\ref{sec:result-models}.
+Listing~\ref{lst:java-ex-df}.  The program dependence graph which this
+subtask's transformation has to generate is visualized in
+Figure~\ref{fig:pdg-test0} in Appendix~\ref{sec:result-models}.
 
 \begin{listing}
   \begin{minted}{java}
@@ -461,10 +463,11 @@ defined in the textual specification that don't occur in the model, and all
 links occuring in the model that are not defined by the specification.
 
 In the example Java programs provided in this case description project, every
-statement and expressions occurs exactly once, e.g., there's is no method with
-two \verb|i++;| statements.  As a result, for all PDGs generated from them, the
-\verb|txt| attribute can be used to uniquely identify any object.  This will be
-true for any additional methods that might be used for evaluation.
+statement and expressions occurs exactly once in a method, e.g., there's is no
+method with two \verb|i++;| statements.  As a result, for all PDGs generated
+from them, the \verb|txt| attribute can be used to uniquely identify any
+object.  This will be true for any additional methods that might be used for
+evaluation.
 
 For example, such a specification for the method shown in
 Listing~\ref{lst:java-ex-df} could be written like in
@@ -525,7 +528,8 @@ with 50\%.  Another important factor weighted with 30\% is \emph{conciseness \&
 criterium that's weighted with the remaining 20\%.  To evaluate the latter,
 further much larger Java methods and corresponding models for test-driving the
 solutions will be provided.  Of course, those will use only the exactly same
-Java language constructs as the existing examples.
+Java language constructs as the existing examples in order not to break
+solutions that used to work fine with the already provided models.
 
 
 
