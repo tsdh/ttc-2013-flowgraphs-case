@@ -43,11 +43,11 @@
 
 \begin{abstract}
   This case for the Transformation Tool Contest 2013 is about evaluating the
-  flexibility of transformation languages and tools.  It consists of four tasks
-  requiring different capabilities.  Two tasks deal with typical model-to-model
-  transformation problems, there's a model-to-text problem, there are two
-  in-place transformation problems, and finally there's a task dealing with
-  validation of models resulting from the transformations.
+  scope and usability of transformation languages and tools for a set of four
+  tasks requiring very different capabilities.  Two tasks deal with typical
+  model-to-model transformation problems, there's a model-to-text problem,
+  there are two in-place transformation problems, and finally there's a task
+  dealing with validation of models resulting from the transformations.
 
   The tasks build upon each other, but the transformation case project also
   provides all intermediate models, thus making it possible to skip tasks that
@@ -55,7 +55,9 @@
   members of participating teams.
 
   All models and metamodels are provided in the EMF/Ecore format.  However,
-  user's of other modeling frameworks are also encouraged to participate.
+  user's of other modeling frameworks are also highly encouraged to
+  participate.  If requested, the models and metamodels can be provided in
+  other serialization formats such as CSV or GXL.
 \end{abstract}
 
 \sloppy
@@ -64,8 +66,15 @@
 \label{sec:objective}
 
 The objective of this case is to allow participants to demonstrate their
-transformation tool's flexibility.  Therefore, the different tasks require
-several different transformation capabilities.
+transformation tool's flexibility, i.e., to show its usability for a very
+diverse set of tasks requiring different transformation capabilities.  Although
+different capabilities are needed, all tasks are connected by their general
+topic: analysis and transformation in compiler construction.
+
+All models and metamodels are provided in the EMF/Ecore format.  However,
+user's of other modeling frameworks are also highly encouraged to participate.
+If requested, the case proponent is willing to help writing an export tool to
+other formats such as CSV or GXL \cite{GXL02}.
 
 Task 1 deals with a typical model-to-model transformation problem.  Given an
 abstract syntax graph of a Java program conforming to the very detailed
@@ -103,12 +112,6 @@ particulary suited for their tools, or to allow teams for developing solutions
 in parallel.  For this reason, there is no distinction between \emph{core} and
 \emph{extension} tasks.  To participate, only one arbitrary task has to be
 solved, but of course scoring high presumably requires solving more tasks.
-
-
-All models and metamodels are provided in the EMF/Ecore format.  However,
-user's of other modeling frameworks are also encouraged to participate.  If
-requested, the case proponent is willing to help writing an export tool to
-other formats such as GXL \cite{GXL02}.
 
 
 \section{Detailed Task Description}
@@ -340,12 +343,12 @@ of information is missing from it: for every flow instruction, we need to know
 which variables it reads and writes.  Therefore, this task is twofold:
 
 \begin{compactenum}
-\item Enhance the model-to-model transformation from task 1 so that it also
+\item Extend the model-to-model transformation from task 1 so that it also
   creates \verb|Var| objects for local variables and \verb|Param| objects for
   method parameters, and connect each flow instruction to the variables it
   reads and writes.
 \item Write a data flow transformation taking the control flow graph resulting
-  from applying task 2's transformation on the result of the enhanced
+  from applying task 2's transformation on the result of the extended
   java-to-structure-graph transformation that synthesizes data flow links.
 \end{compactenum}
 
@@ -361,11 +364,11 @@ The relevant metamodel excerpt is shown in Figure~\ref{fig:data-flow-mm}.
 \paragraph{Subtask 3.1.}
 \label{sec:subtask-3.1}
 
-For every local variable statement in the JaMoPP model, task 1's transformation
-has to create a \verb|Var| object.  It's \verb|txt| attribute should be set to
-the variable's name.  Similarly, a \verb|Param| object has to be created for
-every method parameter.  Again, the \verb|txt| attribute should be set to the
-parameter's name.
+For every local variable statement in the JaMoPP model, the extended
+model-to-model transformation has to create a \verb|Var| object.  It's
+\verb|txt| attribute should be set to the variable's name.  Similarly, a
+\verb|Param| object has to be created for every method parameter.  Again, the
+\verb|txt| attribute should be set to the parameter's name.
 
 Furthermore, every flow instruction should be connected to the variables it
 writes (the \verb|def| reference) and to the variables it reads (the \verb|use|
@@ -374,10 +377,17 @@ statement \verb|a = b + c;| has a \verb|def| link to \verb|a|, and two
 \verb|use| links to \verb|b| and \verb|c|, and the statement \verb|i++;| both
 defines and uses \verb|i|.
 
+Thereafter, task 2's control flow transformation has to be applied to the
+result of the extended model-to-model transformation resulting in a structure
+graph where every flow instruction knows the variables/parameters it reads and
+writes, and with also contains the control flow information between flow
+instructions.
+
 Again, the result models of this subtask are contained in the \verb|results|
 folder.  For every Java source file \verb|TestX|, there is a model
 \verb|TestX-ControlFlowGraph-with-Vars.xmi| plus a PDF visualization of it.  In
 case you've skipped this subtask, you can use them to tackle the next subtask.
+
 
 \paragraph{Subtask 3.2.}
 \label{sec:subtask-3.2}
@@ -435,15 +445,17 @@ public int testMethod() {
   \label{lst:java-ex-df}
 \end{listing}
 
-
 The result models (including visualizations) are again available in the
 \verb|results| directory.  They are named \verb|TestX-DataFlowGraph.{xmi,pdf}|.
 Because the \verb|Var| objects were only needed for computing the data flow
 links, they are deleted from the models in order to keep the visualizations
 readable.
 
+
 \subsection{Task 4: Validation}
 \label{sec:task4-validation}
+
+%% TODO: Too vague!
 
 The fourth task is no strict transformation task.  Instead, the challenge is
 validating the control flow graphs created by task 2, and the program
@@ -504,6 +516,15 @@ dfNext: "b = a - b;"     --> "return b * c;"
 There's no restrictions on the actual syntax except that it should be easy to
 write for a Java programmer.
 
+The requested tools's job is simple.  It has to load a PDG and to read a
+specification such as depicted in Listing~\ref{lst:example-validation}.  For
+any \verb|cfNext| or \verb|dfNext| link in the model, it has to check if it is
+also defined in the specification.  If not, it has to print some
+\emph{false-link warning} message.  Reversely, it has to check if every link
+defined in the specification also occurs in the model.  If not, it has to print
+some \emph{missing-link warning}.
+
+
 
 \section{Evaluation Criteria}
 \label{sec:evaluation-criteria}
@@ -513,23 +534,27 @@ In the \verb|evaluation| directory, there is an OpenDocument spreadsheet
 
 Every voter should assign a score value in the range from 1 (not solved, or
 very poor) to 5 (excellent) for each submitted solution and every task
-separately.  For every solution, the average scores per tasks are weighted.
-Task 1 is weighted with 30\%, Task 2 is weighted with 40\% because its
-unquestionable the most complex one, and the tasks 3.1, 3.2, and 4 are weighted
-with 10\% each.  So the typical model-to-model transformation tasks 1 and 3.1
-have a weight of 40\% in total, the more graph transformation like tasks 2 and
-3.2 have a total weight of 50\%, and the validation task 4 with its 10\% weight
-might be the one that tipps the scales.
+separately.  Thus, the cells of the first spreadsheet contain the number of
+voters that assign a given score to a solution's tasks.  For every solution,
+the average scores per tasks are weighted.  Task 1 is weighted with 30\%, Task
+2 is weighted with 40\% because its unquestionable the most complex one, and
+the tasks 3.1, 3.2, and 4 are weighted with 10\% each.  So the typical
+model-to-model transformation task 1 and its extension task 3.1 have a weight
+of 40\% in total, the more graph transformation like tasks 2 and 3.2 have a
+total weight of 50\%, and the validation task 4 with its 10\% weight might be
+the one that tipps the scales.
 
-To score a task, voters should take into account the following criteria.  The
-most important one is \emph{completeness \& correctness}, so it is weighted
-with 50\%.  Another important factor weighted with 30\% is \emph{conciseness \&
-  understandability}.  Lastly, the \emph{efficiency} of the solution is another
-criterium that's weighted with the remaining 20\%.  To evaluate the latter,
-further much larger Java methods and corresponding models for test-driving the
-solutions will be provided.  Of course, those will use only the exactly same
-Java language constructs as the existing examples in order not to break
-solutions that used to work fine with the already provided models.
+To score an individual task separately, voters should take into account the
+following criteria (modeled in the second spreadsheet).  The most important one
+is \emph{completeness \& correctness}, so it is weighted with 50\%.  Another
+important factor weighted with 30\% is \emph{conciseness \& understandability}.
+Lastly, the \emph{efficiency} of the solution is another criterium that's
+weighted with the remaining 20\%.  To evaluate the latter, further much larger
+Java methods and corresponding models for test-driving the solutions will be
+provided.  Of course, those will use only the exactly same Java language
+constructs as the existing examples in order not to break solutions that used
+to work fine with the already provided models.
+
 
 
 
