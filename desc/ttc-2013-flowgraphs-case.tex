@@ -56,8 +56,8 @@
 
   All models and metamodels are provided in the EMF/Ecore format.  However,
   user's of other modeling frameworks are also highly encouraged to
-  participate.  If requested, the models and metamodels can be provided in
-  other serialization formats such as CSV or GXL.
+  participate.  If requested, export tools can be written to serialize the
+  models in other formats such as simple CSV files or GXL.
 \end{abstract}
 
 \sloppy
@@ -76,7 +76,7 @@ user's of other modeling frameworks are also highly encouraged to participate.
 If requested, the case proponent is willing to help writing an export tool to
 other formats such as CSV or GXL \cite{GXL02}.
 
-Task 1 deals with a typical model-to-model transformation problem.  Given an
+Task~1 deals with a typical model-to-model transformation problem.  Given an
 abstract syntax graph of a Java program conforming to the very detailed
 EMFText\footnote{\url{http://www.emftext.org/index.php/EMFText}} JaMoPP
 metamodel \cite{jamopp09}, a new model, the structure graph of the original
@@ -87,19 +87,19 @@ whole bunch of interrelated objects.  In the target model, we only want one
 single \verb|SimpleStmt|, but its \verb|txt| attribute should be set to the
 original Java syntax: \verb|int i = a + b;|.
 
-In task 2, the structure graph resulting from task 1 should be enhanced with
+In task~2, the structure graph resulting from task~1 should be enhanced with
 control flow information, i.e., every statement or expression has to be
 connected with its possible control flow successors as defined by the Java
 semantics \cite{Java7Spec}.  This is an in-place transformation task which is
 suited for graph transformation tools but can also be tackled algorithmically.
 
-Task 3 is similar to task 2 from a technical point of view, that is, it is also
+Task~3 is similar to task~2 from a technical point of view, that is, it is also
 an in-place transformation.  Based on the control flow graph resulting from
-task 2, data flow information has to be synthesized.  This also requires some
-additions to the model-to-model transformation from task 1.  Again, this task
+task~2, data flow information has to be synthesized.  This also requires some
+additions to the model-to-model transformation from task~1.  Again, this task
 is suited to be tackled with graph transformations or algorithmically.
 
-The context of task 4 is a bit offside the strict transformation context.
+The context of task~4 is a bit offside the strict transformation context.
 Nevertheless, it tackles the important challenge of model validation.  Given
 the fact that you as transformation engineer put all your efforts in the
 transformation tasks, can you offload testing to developers that have a good
@@ -124,32 +124,32 @@ The case project is available on GitHub\footnote{This case's project:
 \verb|ttc-2013-flowgraphs-case| contains several directories.  The directory
 \verb|desc| contains the case description your are reading right now.
 
-The \verb|metamodel| directory contains the target metamodel as Ecore file
-(\verb|FlowGraph.ecore|) including PDF images with several views on it focusing
-on the specific tasks.  \verb|StructureGraph.pdf| shows the target metamodel of
-task 1, \verb|ControlFlowGraph.pdf| shows the metamodel classes important for
-task 2, and \verb|DataFlowGraph.pdf| shows the metamodel classes important for
-task 3.
+The \verb|metamodel| directory contains the target metamodel
+\verb|FlowGraph.ecore| including PDF images with several views on it focusing
+on the specific tasks.  \verb|StructureGraph.pdf| shows the target metamodel
+parts relevant for task~1, \verb|ControlFlowGraph.pdf| shows the metamodel
+classes important for task~2, and \verb|DataFlowGraph.pdf| shows the metamodel
+classes important for task~3.
 
 The \verb|src| folder contains several Java classes.  Every class contains just
 one single method.  For every class, one model will be generated as source for
-task 1.  If you need more models to test your transformations, simply put a new
+task~1.  If you need more models to test your transformations, simply put a new
 Java file in this directory.
 
 The \verb|jamopp| directory contains the JaMoPP-Parser as JAR file that
 generates EMF models conforming to the JaMoPP metamodel out of Java source code
 files.
 
-Initially, the \verb|models| directory is empty.  Top-level, there're scripts
-\verb|gen-models-from-src.sh| (for Unices) and \verb|gen-models-from-src.bat|
-(for Windows).  When being run, they use JaMoPP to parse all Java files in
-\verb|src| and create corresponding models (file extension \verb|java.xmi|) in
-\verb|models|.  Those are valid source models for task 1.  Additionally, the
-JaMoPP parser serializes the JaMoPP metamodel next to the model files.  It is
-called \verb|java.ecore|\footnote{It'll also create a file
-  \texttt{layout.ecore} containing classes that can be used to annotate
+Initially, the \verb|models| directory is empty.  Top-level, there are two
+shell scripts \verb|gen-models-from-src.sh| (for Unices) and
+\verb|gen-models-from-src.bat| (for Windows).  When being run, they use JaMoPP
+to parse all Java files in \verb|src| and create corresponding models (file
+extension \verb|java.xmi|) in \verb|models|.  Those are valid source models for
+task~1.  Additionally, the JaMoPP parser serializes the JaMoPP metamodel next
+to the model files.  It is called \verb|java.ecore|\footnote{It'll also create
+  a file \texttt{layout.ecore} containing classes that can be used to annotate
   abstract syntax graphs with layout information such as indentation, but this
-  is of no importance for this case.} and the source metamodel of task 1.
+  is of no importance for this case.} and the source metamodel of task~1.
 
 The \verb|results| folder contains all intermediate and final target models
 including visualizations.  You can use them to validate your own results, or
@@ -159,7 +159,7 @@ Finally, the \verb|evaluation| directory contains an OpenDocument spreadsheet
 that will be used for scoring the solutions during the evaluation.
 
 
-\subsection{Task 1: Structure Graph}
+\subsection{Task~1: Structure Graph}
 \label{sec:task1-structure-graph}
 
 The first task requires writing a model-to-model transformation.  The source
@@ -193,7 +193,7 @@ structural point of view.  The major difference is that statements and
 expressions are represented as one single object instead of being split up any
 further.  Another difference is that every \verb|Method| has exactly one
 \verb|Exit|.  There is no correspondence in Java, but it's a synthetic element
-added in favour of task 2.  No matter how a method is exited, the last object
+added in favour of task~2.  No matter how a method is exited, the last object
 in a method's control flow graph is this method's \verb|Exit| object.
 
 All metamodel classes extend the abstract \verb|Item| class, even the class
@@ -210,7 +210,7 @@ Exceptions from this rule are all structured statements: the \verb|txt| value
 of a \verb|Block| is always \verb|"{...}"|, the value for an \verb|If| is
 always \verb|"if"|, the value for a \verb|Loop| is always \verb|"while"|, the
 value for a \verb|Method| with name \verb|foo| is always \verb|"foo()"| (no
-matter it there are parameters).  The artificial \verb|Exit| objects should
+matter if there are parameters).  The artificial \verb|Exit| objects should
 have the value \verb|"Exit"| set.
 
 With the exception of \verb|Break| and \verb|Continue| objects that might refer
@@ -240,10 +240,10 @@ public static void testMethod(int a) {
 \end{listing}
 
 The resulting target model is visualized in Figure~\ref{fig:sg-test1} in
-Appendix~\ref{sec:result-models}.
+Appendix~\ref{sec:result-models} on page~\pageref{fig:sg-test1}.
 
 
-\subsection{Task 2: Control Flow Graph}
+\subsection{Task~2: Control Flow Graph}
 \label{sec:task2-cf-graph}
 
 This task deals with an in-place transformation problem.  The semantics of the
@@ -274,8 +274,8 @@ blocks may be nested in other blocks, the \emph{first} flow instruction is
 actually the first one reachable by a depth-first search.  These \emph{first}
 semantics apply to whole description of this task.
 
-In case of a label, the first flow instruction in the statement which is
-labeled is the control flow successor.
+In case of a label, the first flow instruction in the labled statement is the
+control flow successor.
 
 In case of loops and if-statements, the successor is their test expression.
 This expression has in turn two control flow successors.  If it is a test
@@ -326,29 +326,30 @@ public static void testMethod(int a) {
   \label{lst:java-ex-cf}
 \end{listing}
 
-It's structure graph that is the result of task 1's transformation is the input
-to the control flow transformation.  In case you haven't tackled task 1 yet, it
+It's structure graph that is the result of task~1's transformation is the input
+to the control flow transformation.  In case you haven't tackled task~1 yet, it
 is also included in this project as \verb|results/Test2-StructureGraph.xmi|.
-The result control flow model is visualized in Figure~\ref{fig:cfg-test2} in
-Appendix~\ref{sec:result-models}.  The control flow transformation should
-create a model equivalent to \verb|results/Test2-ControlFlowGraph.xmi|.
+The result control flow graph is visualized in Figure~\ref{fig:cfg-test2} in
+Appendix~\ref{sec:result-models} on page~\pageref{fig:cfg-test2}.  The control
+flow transformation should create a model equivalent to
+\verb|results/Test2-ControlFlowGraph.xmi|.
 
 
-\subsection{Task 3: Data Flow Graph}
+\subsection{Task~3: Data Flow Graph}
 \label{sec:task3-df-graph}
 
 In this task, an intra-procedural data flow analysis should be performed.  This
-can be done based on the control flow graph, but currently, one important piece
+can be done based on the control flow graph, but currently one important piece
 of information is missing from it: for every flow instruction, we need to know
 which variables it reads and writes.  Therefore, this task is twofold:
 
 \begin{compactenum}
-\item Extend the model-to-model transformation from task 1 so that it also
+\item Extend the model-to-model transformation from task~1 so that it also
   creates \verb|Var| objects for local variables and \verb|Param| objects for
   method parameters, and connect each flow instruction to the variables it
   reads and writes.
 \item Write a data flow transformation taking the control flow graph resulting
-  from applying task 2's transformation on the result of the extended
+  from applying task~2's transformation on the result of the extended
   java-to-structure-graph transformation that synthesizes data flow links.
 \end{compactenum}
 
@@ -361,7 +362,7 @@ The relevant metamodel excerpt is shown in Figure~\ref{fig:data-flow-mm}.
   \label{fig:data-flow-mm}
 \end{figure}
 
-\paragraph{Subtask 3.1.}
+\paragraph{Subtask~3.1.}
 \label{sec:subtask-3.1}
 
 For every local variable statement in the JaMoPP model, the extended
@@ -377,10 +378,10 @@ statement \verb|a = b + c;| has a \verb|def| link to \verb|a|, and two
 \verb|use| links to \verb|b| and \verb|c|, and the statement \verb|i++;| both
 defines and uses \verb|i|.
 
-Thereafter, task 2's control flow transformation has to be applied to the
+Thereafter, task~2's control flow transformation has to be applied to the
 result of the extended model-to-model transformation resulting in a structure
 graph where every flow instruction knows the variables/parameters it reads and
-writes, and with also contains the control flow information between flow
+writes, and which also contains the control flow links between flow
 instructions.
 
 Again, the result models of this subtask are contained in the \verb|results|
@@ -389,12 +390,12 @@ folder.  For every Java source file \verb|TestX|, there is a model
 case you've skipped this subtask, you can use them to tackle the next subtask.
 
 
-\paragraph{Subtask 3.2.}
+\paragraph{Subtask~3.2.}
 \label{sec:subtask-3.2}
 
 The model resulting from applying the enhanced model-to-model transformation on
 the JaMoPP syntax graphs followed by applying the control flow transformation
-from task 2 to it is the source model for the data flow transformation to be
+from task~2 to it is the source model for the data flow transformation to be
 developed in this subtask.
 
 It's sole purpose is to synthesize \verb|dfNext| links.  For every flow
@@ -425,7 +426,8 @@ optimization phase in compilers \cite{Ferrante:1987:PDG:24039.24041}.
 The method defined in \verb|Test0.java| is shown in
 Listing~\ref{lst:java-ex-df}.  The program dependence graph which this
 subtask's transformation has to generate is visualized in
-Figure~\ref{fig:pdg-test0} in Appendix~\ref{sec:result-models}.
+Figure~\ref{fig:pdg-test0} in Appendix~\ref{sec:result-models} on
+page~\pageref{fig:pdg-test0}.
 
 \begin{listing}
   \begin{minted}{java}
@@ -445,21 +447,19 @@ public int testMethod() {
   \label{lst:java-ex-df}
 \end{listing}
 
-The result models (including visualizations) are again available in the
+The result models including visualizations are again available in the
 \verb|results| directory.  They are named \verb|TestX-DataFlowGraph.{xmi,pdf}|.
 Because the \verb|Var| objects were only needed for computing the data flow
 links, they are deleted from the models in order to keep the visualizations
 readable.
 
 
-\subsection{Task 4: Validation}
+\subsection{Task~4: Validation}
 \label{sec:task4-validation}
 
-%% TODO: Too vague!
-
 The fourth task is no strict transformation task.  Instead, the challenge is
-validating the control flow graphs created by task 2, and the program
-dependence graphs resulting from task 3.  Concretely, it should be checked if
+validating the control flow graphs created by task~2, and the program
+dependence graphs resulting from task~3.  Concretely, it should be checked if
 all \verb|cfNext| and \verb|dfNext| links are set properly.
 
 Since transformation experts have no time for testing their transformations in
@@ -475,7 +475,7 @@ defined in the textual specification that don't occur in the model, and all
 links occuring in the model that are not defined by the specification.
 
 In the example Java programs provided in this case description project, every
-statement and expressions occurs exactly once in a method, e.g., there's is no
+statement and expressions occurs at most once in a method, e.g., there's is no
 method with two \verb|i++;| statements.  As a result, for all PDGs generated
 from them, the \verb|txt| attribute can be used to uniquely identify any
 object.  This will be true for any additional methods that might be used for
@@ -483,7 +483,8 @@ evaluation.
 
 For example, such a specification for the method shown in
 Listing~\ref{lst:java-ex-df} could be written like in
-Listing~\ref{lst:example-validation}.
+Listing~\ref{lst:example-validation}.  There's no restrictions on the actual
+syntax except that it should be easy to write for a Java programmer.
 
 \begin{listing}
 \begin{verbatim}
@@ -513,47 +514,78 @@ dfNext: "b = a - b;"     --> "return b * c;"
   \label{lst:example-validation}
 \end{listing}
 
-There's no restrictions on the actual syntax except that it should be easy to
-write for a Java programmer.
-
 The requested tools's job is simple.  It has to load a PDG and to read a
 specification such as depicted in Listing~\ref{lst:example-validation}.  For
 any \verb|cfNext| or \verb|dfNext| link in the model, it has to check if it is
-also defined in the specification.  If not, it has to print some
-\emph{false-link warning} message.  Reversely, it has to check if every link
-defined in the specification also occurs in the model.  If not, it has to print
-some \emph{missing-link warning}.
+also defined in the specification.  If not, it has to print a \emph{false-link
+  warning} message.  Reversely, it has to check if every link defined in the
+specification also occurs in the model.  If not, it has to print a
+\emph{missing-link warning}.
 
 
 
 \section{Evaluation Criteria}
 \label{sec:evaluation-criteria}
 
-In the \verb|evaluation| directory, there is an OpenDocument spreadsheet
-\verb|evaluation_sheet.ods| that will be used to score all submitted solutions.
+In the \verb|evaluation| directory, there is an OpenDocument spreadsheet which
+will be used to score all submitted solutions (\verb|evaluation_sheet.ods|).
 
-Every voter should assign a score value in the range from 1 (not solved, or
-very poor) to 5 (excellent) for each submitted solution and every task
-separately.  Thus, the cells of the first spreadsheet contain the number of
-voters that assign a given score to a solution's tasks.  For every solution,
-the average scores per tasks are weighted.  Task 1 is weighted with 30\%, Task
-2 is weighted with 40\% because its unquestionable the most complex one, and
-the tasks 3.1, 3.2, and 4 are weighted with 10\% each.  So the typical
-model-to-model transformation task 1 and its extension task 3.1 have a weight
-of 40\% in total, the more graph transformation like tasks 2 and 3.2 have a
-total weight of 50\%, and the validation task 4 with its 10\% weight might be
-the one that tipps the scales.
+There are two tables in the spreadsheet.  The large upper one is for
+aggregating the individual scores of all voters to compute the overall ranking
+between all submitted solutions (\emph{Overall Evaluation Sheet)}.
 
-To score an individual task separately, voters should take into account the
-following criteria (modeled in the second spreadsheet).  The most important one
-is \emph{completeness \& correctness}, so it is weighted with 50\%.  Another
-important factor weighted with 30\% is \emph{conciseness \& understandability}.
-Lastly, the \emph{efficiency} of the solution is another criterium that's
-weighted with the remaining 20\%.  To evaluate the latter, further much larger
-Java methods and corresponding models for test-driving the solutions will be
-provided.  Of course, those will use only the exactly same Java language
-constructs as the existing examples in order not to break solutions that used
-to work fine with the already provided models.
+The small table below is for helping voters to assign a score in the range from
+1 (not solved, or very poor) to 5 (excellent) for every task of each submitted
+solution (\emph{Per-Task Evaluation Sheet)}.  To score an individual task,
+voters should take into account the criteria reflected in that table.  The most
+important one is \emph{completeness~\& correctness}, so it is weighted with
+50\%.  Another important factor weighted with 30\% is \emph{conciseness~\&
+  understandability}.  Lastly, the \emph{efficiency} of the solution is another
+criterium that's weighted with the remaining 20\%.  To be able to evaluate
+efficiency, further much larger Java methods and corresponding models for
+test-driving the solutions will be provided.  Of course, those will use only
+the exactly same Java language constructs as the existing examples in order not
+to break solutions that used to work fine with the already provided models.
+
+For example, for a given solution's task~1, some voter assigns 5 points to
+completeness~\& correctness, 4 point to conciseness \& understandability, and 3
+points to efficiency.  The table shows a total weighted score of 4.3 rounded to
+4.
+
+The voters score the tasks of all solutions in the same way and write down the
+weighted and rounded scores computed by the second table.  Thus, every voter
+creates his personal score sheet that might look like
+Table~\ref{tab:personal-score-sheet}.
+
+\begin{table}[h!]
+  \centering
+  \begin{tabular}[h!]{| l | c | c | c | c |}
+    \hline
+    \textbf{Voter i}& \textbf{Solution 1} & \textbf{Solution 2} & ... & \textbf{Solution n}\\
+    \hline
+    \textbf{Task~1} & 4 & 3 & ... & 3\\
+    \textbf{Task~2} & 3 & 1 & ... & 2\\
+    \textbf{Task~3.1} & 4 & 4 & ... & 1\\
+    \textbf{Task~3.2} & 5 & 3 & ... & 1\\
+    \textbf{Task~4} & 2 & 5 & ... & 2\\
+    \hline
+  \end{tabular}
+  \caption{An example personal score sheet}
+  \label{tab:personal-score-sheet}
+\end{table}
+
+These personal score sheets of all voters are then conveyed into the overall
+evaluation sheet.  For every submitted solution and every task, the number of
+voters that assigned a score of $s \in [1, 5]$ is noted down in the cells of
+the table.  The table then computes the average score per task for each
+solution and weights them to compute a total weighted score.  Task~1 is
+weighted with 30\%, Task~2 is weighted with 40\% because its unquestionable the
+most complex one, and the tasks 3.1, 3.2, and 4 are weighted with 10\% each.
+So the typical model-to-model transformation task~1 and its extension task~3.1
+have a weight of 40\% in total, the more graph transformation like tasks 2 and
+3.2 have a total weight of 50\%, and the validation task~4 with its 10\% weight
+might be the one that tipps the scales.
+
 
 
 
@@ -561,6 +593,7 @@ to work fine with the already provided models.
 \bibliography{ttc-2013-flowgraphs-case}
 \bibliographystyle{alpha}
 
+\clearpage
 \appendix
 
 \section{List of used JaMoPP Classifiers}
