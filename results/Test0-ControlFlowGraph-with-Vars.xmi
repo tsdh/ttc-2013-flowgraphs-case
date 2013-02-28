@@ -1,26 +1,17 @@
 <?xml version="1.0" encoding="ASCII"?>
 <xmi:XMI xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:flowgraph="http://flowgraph/1.0">
-  <flowgraph:Method txt="testMethod()" cfNext="/2">
-    <stmts xsi:type="flowgraph:SimpleStmt" txt="int a = 1;"/>
-    <stmts xsi:type="flowgraph:SimpleStmt" txt="int b = 2;"/>
-    <stmts xsi:type="flowgraph:SimpleStmt" txt="int c = a + b;"/>
-    <stmts xsi:type="flowgraph:SimpleStmt" txt="a = c;"/>
-    <stmts xsi:type="flowgraph:SimpleStmt" txt="b = a;"/>
-    <stmts xsi:type="flowgraph:SimpleStmt" txt="c = a / b;"/>
-    <stmts xsi:type="flowgraph:SimpleStmt" txt="b = a - b;"/>
-    <stmts xsi:type="flowgraph:Return" txt="return b * c;"/>
-    <exit txt="Exit"/>
+  <flowgraph:Method txt="testMethod()" cfNext="/0/@stmts.0">
+    <stmts xsi:type="flowgraph:SimpleStmt" txt="int a = 1;" cfNext="/0/@stmts.1" cfPrev="/0" def="/1"/>
+    <stmts xsi:type="flowgraph:SimpleStmt" txt="int b = 2;" cfNext="/0/@stmts.2" cfPrev="/0/@stmts.0" def="/2"/>
+    <stmts xsi:type="flowgraph:SimpleStmt" txt="int c = a + b;" cfNext="/0/@stmts.3" cfPrev="/0/@stmts.1" def="/3" use="/1 /2"/>
+    <stmts xsi:type="flowgraph:SimpleStmt" txt="a = c;" cfNext="/0/@stmts.4" cfPrev="/0/@stmts.2" def="/1" use="/3"/>
+    <stmts xsi:type="flowgraph:SimpleStmt" txt="b = a;" cfNext="/0/@stmts.5" cfPrev="/0/@stmts.3" def="/2" use="/1"/>
+    <stmts xsi:type="flowgraph:SimpleStmt" txt="c = a / b;" cfNext="/0/@stmts.6" cfPrev="/0/@stmts.4" def="/3" use="/1 /2"/>
+    <stmts xsi:type="flowgraph:SimpleStmt" txt="b = a - b;" cfNext="/0/@stmts.7" cfPrev="/0/@stmts.5" def="/2" use="/1 /2"/>
+    <stmts xsi:type="flowgraph:Return" txt="return b * c;" cfNext="/0/@exit" cfPrev="/0/@stmts.6" use="/2 /3"/>
+    <exit txt="Exit" cfPrev="/0/@stmts.7"/>
   </flowgraph:Method>
-  <flowgraph:Exit txt="Exit" cfPrev="/12"/>
-  <flowgraph:SimpleStmt txt="int a = 1;" cfNext="/4" cfPrev="/0" def="/3"/>
-  <flowgraph:Var txt="a" definers="/2 /8" users="/6 /9 /10 /11"/>
-  <flowgraph:SimpleStmt txt="int b = 2;" cfNext="/6" cfPrev="/2" def="/5"/>
-  <flowgraph:Var txt="b" definers="/4 /9 /11" users="/6 /10 /11 /12"/>
-  <flowgraph:SimpleStmt txt="int c = a + b;" cfNext="/8" cfPrev="/4" def="/7" use="/3 /5"/>
-  <flowgraph:Var txt="c" definers="/6 /10" users="/8 /12"/>
-  <flowgraph:SimpleStmt txt="a = c;" cfNext="/9" cfPrev="/6" def="/3" use="/7"/>
-  <flowgraph:SimpleStmt txt="b = a;" cfNext="/10" cfPrev="/8" def="/5" use="/3"/>
-  <flowgraph:SimpleStmt txt="c = a / b;" cfNext="/11" cfPrev="/9" def="/7" use="/3 /5"/>
-  <flowgraph:SimpleStmt txt="b = a - b;" cfNext="/12" cfPrev="/10" def="/5" use="/3 /5"/>
-  <flowgraph:Return txt="return b * c;" cfNext="/1" cfPrev="/11" use="/5 /7"/>
+  <flowgraph:Var txt="a" definers="/0/@stmts.0 /0/@stmts.3" users="/0/@stmts.2 /0/@stmts.4 /0/@stmts.5 /0/@stmts.6"/>
+  <flowgraph:Var txt="b" definers="/0/@stmts.1 /0/@stmts.4 /0/@stmts.6" users="/0/@stmts.2 /0/@stmts.5 /0/@stmts.6 /0/@stmts.7"/>
+  <flowgraph:Var txt="c" definers="/0/@stmts.2 /0/@stmts.5" users="/0/@stmts.3 /0/@stmts.7"/>
 </xmi:XMI>

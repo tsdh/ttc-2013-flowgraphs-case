@@ -1,23 +1,12 @@
 <?xml version="1.0" encoding="ASCII"?>
-<xmi:XMI xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:flowgraph="http://flowgraph/1.0">
-  <flowgraph:Method txt="testMethod()">
-    <stmts xsi:type="flowgraph:SimpleStmt" txt="int a = 1;"/>
-    <stmts xsi:type="flowgraph:SimpleStmt" txt="int b = 2;"/>
-    <stmts xsi:type="flowgraph:SimpleStmt" txt="int c = a + b;"/>
-    <stmts xsi:type="flowgraph:SimpleStmt" txt="a = c;"/>
-    <stmts xsi:type="flowgraph:SimpleStmt" txt="b = a;"/>
-    <stmts xsi:type="flowgraph:SimpleStmt" txt="c = a / b;"/>
-    <stmts xsi:type="flowgraph:SimpleStmt" txt="b = a - b;"/>
-    <stmts xsi:type="flowgraph:Return" txt="return b * c;"/>
-    <exit txt="Exit"/>
-  </flowgraph:Method>
-  <flowgraph:Exit txt="Exit"/>
-  <flowgraph:SimpleStmt txt="int a = 1;"/>
-  <flowgraph:SimpleStmt txt="int b = 2;"/>
-  <flowgraph:SimpleStmt txt="int c = a + b;"/>
-  <flowgraph:SimpleStmt txt="a = c;"/>
-  <flowgraph:SimpleStmt txt="b = a;"/>
-  <flowgraph:SimpleStmt txt="c = a / b;"/>
-  <flowgraph:SimpleStmt txt="b = a - b;"/>
-  <flowgraph:Return txt="return b * c;"/>
-</xmi:XMI>
+<flowgraph:Method xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:flowgraph="http://flowgraph/1.0" txt="testMethod()">
+  <stmts xsi:type="flowgraph:SimpleStmt" txt="int a = 1;"/>
+  <stmts xsi:type="flowgraph:SimpleStmt" txt="int b = 2;"/>
+  <stmts xsi:type="flowgraph:SimpleStmt" txt="int c = a + b;"/>
+  <stmts xsi:type="flowgraph:SimpleStmt" txt="a = c;"/>
+  <stmts xsi:type="flowgraph:SimpleStmt" txt="b = a;"/>
+  <stmts xsi:type="flowgraph:SimpleStmt" txt="c = a / b;"/>
+  <stmts xsi:type="flowgraph:SimpleStmt" txt="b = a - b;"/>
+  <stmts xsi:type="flowgraph:Return" txt="return b * c;"/>
+  <exit txt="Exit"/>
+</flowgraph:Method>
