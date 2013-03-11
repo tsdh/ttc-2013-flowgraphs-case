@@ -181,25 +181,25 @@
     <children xmi:type="notation:Node" xmi:id="_uaIBkIpdEeKh664PTFNnNg" type="4012">
       <layoutConstraint xmi:type="notation:Location" xmi:id="_uaIBkYpdEeKh664PTFNnNg" x="6" y="19"/>
     </children>
-    <styles xmi:type="notation:ConnectorStyle" xmi:id="_uaEXMYpdEeKh664PTFNnNg" lineColor="4210752"/>
+    <styles xmi:type="notation:ConnectorStyle" xmi:id="_uaEXMYpdEeKh664PTFNnNg" routing="Rectilinear" lineColor="4210752"/>
     <styles xmi:type="notation:FontStyle" xmi:id="_uaEXMopdEeKh664PTFNnNg" fontColor="4210752" fontName="DejaVu Sans" fontHeight="10"/>
     <element xmi:type="ecore:EReference" href="FlowGraph.ecore#//Method/vars"/>
-    <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_uaEXM4pdEeKh664PTFNnNg" points="[50, 0, -117, 93]$[159, 0, -8, 93]$[159, -78, -8, 15]"/>
-    <sourceAnchor xmi:type="notation:IdentityAnchor" xmi:id="_qCdy4IpfEeKAFszzPY-hTA" id="(0.5,0.5)"/>
-    <targetAnchor xmi:type="notation:IdentityAnchor" xmi:id="_qCdy4YpfEeKAFszzPY-hTA" id="(0.2549019607843137,0.8)"/>
+    <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_uaEXM4pdEeKh664PTFNnNg" points="[23, -2, -96, 83]$[132, -2, 13, 83]$[132, -75, 13, 10]"/>
+    <sourceAnchor xmi:type="notation:IdentityAnchor" xmi:id="_QzqrUIpjEeKhZKikGx6iqA" id="(0.7745098039215687,0.425)"/>
+    <targetAnchor xmi:type="notation:IdentityAnchor" xmi:id="_QzqrUYpjEeKhZKikGx6iqA" id="(0.049019607843137254,0.8666666666666667)"/>
   </edges>
-  <edges xmi:type="notation:Edge" xmi:id="_gLMy0IpfEeKAFszzPY-hTA" type="3002" source="_OufMYF_CEeKSdeu0QbltVg" target="_gt28AF_CEeKSdeu0QbltVg">
-    <children xmi:type="notation:Node" xmi:id="_gLREQIpfEeKAFszzPY-hTA" type="4011">
-      <layoutConstraint xmi:type="notation:Location" xmi:id="_gLREQYpfEeKAFszzPY-hTA" x="-10" y="-10"/>
+  <edges xmi:type="notation:Edge" xmi:id="_L104UIpjEeKhZKikGx6iqA" type="3002" source="_OufMYF_CEeKSdeu0QbltVg" target="_gt28AF_CEeKSdeu0QbltVg">
+    <children xmi:type="notation:Node" xmi:id="_L2FXAIpjEeKhZKikGx6iqA" type="4011">
+      <layoutConstraint xmi:type="notation:Location" xmi:id="_L2FXAYpjEeKhZKikGx6iqA" x="-10" y="-10"/>
     </children>
-    <children xmi:type="notation:Node" xmi:id="_gLSSYIpfEeKAFszzPY-hTA" type="4012">
-      <layoutConstraint xmi:type="notation:Location" xmi:id="_gLSSYYpfEeKAFszzPY-hTA" x="10" y="10"/>
+    <children xmi:type="notation:Node" xmi:id="_L2GlIIpjEeKhZKikGx6iqA" type="4012">
+      <layoutConstraint xmi:type="notation:Location" xmi:id="_L2GlIYpjEeKhZKikGx6iqA" x="10" y="10"/>
     </children>
-    <styles xmi:type="notation:ConnectorStyle" xmi:id="_gLMy0YpfEeKAFszzPY-hTA" lineColor="4210752"/>
-    <styles xmi:type="notation:FontStyle" xmi:id="_gLMy0opfEeKAFszzPY-hTA" fontColor="4210752" fontName="DejaVu Sans" fontHeight="10"/>
+    <styles xmi:type="notation:ConnectorStyle" xmi:id="_L104UYpjEeKhZKikGx6iqA" routing="Rectilinear" lineColor="4210752"/>
+    <styles xmi:type="notation:FontStyle" xmi:id="_L104UopjEeKhZKikGx6iqA" fontColor="4210752" fontName="DejaVu Sans" fontHeight="10"/>
     <element xmi:type="ecore:EReference" href="FlowGraph.ecore#//Var/method"/>
-    <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_gLMy04pfEeKAFszzPY-hTA" points="[-8, 15, 159, -78]$[-8, 93, 159, 0]$[-117, 93, 50, 0]"/>
-    <sourceAnchor xmi:type="notation:IdentityAnchor" xmi:id="_gLYZAIpfEeKAFszzPY-hTA" id="(0.2549019607843137,0.8)"/>
-    <targetAnchor xmi:type="notation:IdentityAnchor" xmi:id="_qCavkIpfEeKAFszzPY-hTA" id="(0.5,0.5)"/>
+    <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_L104U4pjEeKhZKikGx6iqA" points="[13, 10, 132, -75]$[13, 83, 132, -2]$[-96, 83, 23, -2]"/>
+    <sourceAnchor xmi:type="notation:IdentityAnchor" xmi:id="_L2QWIIpjEeKhZKikGx6iqA" id="(0.049019607843137254,0.8666666666666667)"/>
+    <targetAnchor xmi:type="notation:IdentityAnchor" xmi:id="_L2QWIYpjEeKhZKikGx6iqA" id="(0.7745098039215687,0.425)"/>
   </edges>
 </notation:Diagram>
