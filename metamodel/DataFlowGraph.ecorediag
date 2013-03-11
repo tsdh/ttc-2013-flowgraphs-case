@@ -46,7 +46,7 @@
     </children>
     <styles xmi:type="notation:ShapeStyle" xmi:id="_fsxScV_CEeKSdeu0QbltVg" fontColor="4210752" fontName="DejaVu Sans" fontHeight="10" fillColor="13761016" lineColor="8421504"/>
     <element xmi:type="ecore:EClass" href="FlowGraph.ecore#//Param"/>
-    <layoutConstraint xmi:type="notation:Bounds" xmi:id="_fsxScl_CEeKSdeu0QbltVg" x="319" y="214"/>
+    <layoutConstraint xmi:type="notation:Bounds" xmi:id="_fsxScl_CEeKSdeu0QbltVg" x="348" y="216"/>
   </children>
   <children xmi:type="notation:Node" xmi:id="_gt28AF_CEeKSdeu0QbltVg" type="1001">
     <children xmi:type="notation:Node" xmi:id="_gt3jEF_CEeKSdeu0QbltVg" type="4001"/>
@@ -173,5 +173,17 @@
     <styles xmi:type="notation:FontStyle" xmi:id="_gt_e4l_CEeKSdeu0QbltVg" fontName="DejaVu Sans"/>
     <element xsi:nil="true"/>
     <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_gt_e41_CEeKSdeu0QbltVg" points="[-2, -19, 29, 95]$[-2, -78, 29, 36]"/>
+  </edges>
+  <edges xmi:type="notation:Edge" xmi:id="_uaEXMIpdEeKh664PTFNnNg" type="3002" source="_gt28AF_CEeKSdeu0QbltVg" target="_OufMYF_CEeKSdeu0QbltVg">
+    <children xmi:type="notation:Node" xmi:id="_uaHagIpdEeKh664PTFNnNg" type="4011">
+      <layoutConstraint xmi:type="notation:Location" xmi:id="_uaHagYpdEeKh664PTFNnNg" x="8" y="-27"/>
+    </children>
+    <children xmi:type="notation:Node" xmi:id="_uaIBkIpdEeKh664PTFNnNg" type="4012">
+      <layoutConstraint xmi:type="notation:Location" xmi:id="_uaIBkYpdEeKh664PTFNnNg" x="6" y="19"/>
+    </children>
+    <styles xmi:type="notation:ConnectorStyle" xmi:id="_uaEXMYpdEeKh664PTFNnNg" routing="Rectilinear" lineColor="4210752"/>
+    <styles xmi:type="notation:FontStyle" xmi:id="_uaEXMopdEeKh664PTFNnNg" fontColor="4210752" fontName="DejaVu Sans" fontHeight="10"/>
+    <element xmi:type="ecore:EReference" href="FlowGraph.ecore#//Method/vars"/>
+    <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_uaEXM4pdEeKh664PTFNnNg" points="[50, -5, -142, 110]$[163, -5, -29, 110]$[163, -78, -29, 37]"/>
   </edges>
 </notation:Diagram>

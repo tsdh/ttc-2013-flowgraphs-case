@@ -20,6 +20,8 @@
   <eClassifiers xsi:type="ecore:EClass" name="Method" eSuperTypes="#//Block #//FlowInstr">
     <eStructuralFeatures xsi:type="ecore:EReference" name="exit" lowerBound="1" eType="#//Exit"
         containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="vars" upperBound="-1" eType="#//Var"
+        containment="true"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Exit" eSuperTypes="#//FlowInstr"/>
   <eClassifiers xsi:type="ecore:EClass" name="Loop" eSuperTypes="#//Conditional">
