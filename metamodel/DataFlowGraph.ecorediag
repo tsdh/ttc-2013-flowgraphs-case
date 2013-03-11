@@ -181,9 +181,25 @@
     <children xmi:type="notation:Node" xmi:id="_uaIBkIpdEeKh664PTFNnNg" type="4012">
       <layoutConstraint xmi:type="notation:Location" xmi:id="_uaIBkYpdEeKh664PTFNnNg" x="6" y="19"/>
     </children>
-    <styles xmi:type="notation:ConnectorStyle" xmi:id="_uaEXMYpdEeKh664PTFNnNg" routing="Rectilinear" lineColor="4210752"/>
+    <styles xmi:type="notation:ConnectorStyle" xmi:id="_uaEXMYpdEeKh664PTFNnNg" lineColor="4210752"/>
     <styles xmi:type="notation:FontStyle" xmi:id="_uaEXMopdEeKh664PTFNnNg" fontColor="4210752" fontName="DejaVu Sans" fontHeight="10"/>
     <element xmi:type="ecore:EReference" href="FlowGraph.ecore#//Method/vars"/>
-    <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_uaEXM4pdEeKh664PTFNnNg" points="[50, -5, -142, 110]$[163, -5, -29, 110]$[163, -78, -29, 37]"/>
+    <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_uaEXM4pdEeKh664PTFNnNg" points="[50, 0, -117, 93]$[159, 0, -8, 93]$[159, -78, -8, 15]"/>
+    <sourceAnchor xmi:type="notation:IdentityAnchor" xmi:id="_qCdy4IpfEeKAFszzPY-hTA" id="(0.5,0.5)"/>
+    <targetAnchor xmi:type="notation:IdentityAnchor" xmi:id="_qCdy4YpfEeKAFszzPY-hTA" id="(0.2549019607843137,0.8)"/>
+  </edges>
+  <edges xmi:type="notation:Edge" xmi:id="_gLMy0IpfEeKAFszzPY-hTA" type="3002" source="_OufMYF_CEeKSdeu0QbltVg" target="_gt28AF_CEeKSdeu0QbltVg">
+    <children xmi:type="notation:Node" xmi:id="_gLREQIpfEeKAFszzPY-hTA" type="4011">
+      <layoutConstraint xmi:type="notation:Location" xmi:id="_gLREQYpfEeKAFszzPY-hTA" x="-10" y="-10"/>
+    </children>
+    <children xmi:type="notation:Node" xmi:id="_gLSSYIpfEeKAFszzPY-hTA" type="4012">
+      <layoutConstraint xmi:type="notation:Location" xmi:id="_gLSSYYpfEeKAFszzPY-hTA" x="10" y="10"/>
+    </children>
+    <styles xmi:type="notation:ConnectorStyle" xmi:id="_gLMy0YpfEeKAFszzPY-hTA" lineColor="4210752"/>
+    <styles xmi:type="notation:FontStyle" xmi:id="_gLMy0opfEeKAFszzPY-hTA" fontColor="4210752" fontName="DejaVu Sans" fontHeight="10"/>
+    <element xmi:type="ecore:EReference" href="FlowGraph.ecore#//Var/method"/>
+    <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_gLMy04pfEeKAFszzPY-hTA" points="[-8, 15, 159, -78]$[-8, 93, 159, 0]$[-117, 93, 50, 0]"/>
+    <sourceAnchor xmi:type="notation:IdentityAnchor" xmi:id="_gLYZAIpfEeKAFszzPY-hTA" id="(0.2549019607843137,0.8)"/>
+    <targetAnchor xmi:type="notation:IdentityAnchor" xmi:id="_qCavkIpfEeKAFszzPY-hTA" id="(0.5,0.5)"/>
   </edges>
 </notation:Diagram>

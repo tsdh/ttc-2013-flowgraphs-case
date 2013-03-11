@@ -21,7 +21,7 @@
     <eStructuralFeatures xsi:type="ecore:EReference" name="exit" lowerBound="1" eType="#//Exit"
         containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="vars" upperBound="-1" eType="#//Var"
-        containment="true"/>
+        containment="true" eOpposite="#//Var/method"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Exit" eSuperTypes="#//FlowInstr"/>
   <eClassifiers xsi:type="ecore:EClass" name="Loop" eSuperTypes="#//Conditional">
@@ -55,6 +55,8 @@
         eType="#//FlowInstr" eOpposite="#//FlowInstr/def"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="users" upperBound="-1"
         eType="#//FlowInstr" eOpposite="#//FlowInstr/use"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="method" eType="#//Method"
+        eOpposite="#//Method/vars"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Param" eSuperTypes="#//Var"/>
   <eClassifiers xsi:type="ecore:EClass" name="Label" eSuperTypes="#//Stmt">
