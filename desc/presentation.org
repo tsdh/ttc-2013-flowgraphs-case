@@ -1,0 +1,19 @@
+#+AUTHOR: Tassilo Horn
+#+EMAIL: horn@uni-koblenz.de
+#+TITLE: The TTC 2013 Flowgraphs Case
+#+DATE: June 20th, 2013
+
+#+OPTIONS: num:nil, toc:nil, reveal_progress, reveal_control:t
+#+REVEAL_THEME: night
+#+REVEAL_TRANS: default
+#+REVEAL_HLEVEL: 2
+
+* The Flowgraphs Case
+
+  There are 4 tasks:
+
+  1. A *model-to-model transformation* from JaMoPP to a simple StructureGraph
+     - includes a *model-to-text* transformation
+  2. An *in-place transformation* synthesizing control flow edges
+  3. An *in-place transformation* synthesizing data flow edges
+  4. A *DSL development* task for *validation*
