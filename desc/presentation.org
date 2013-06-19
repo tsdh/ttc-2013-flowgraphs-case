@@ -8,7 +8,7 @@
 #+REVEAL_TRANS: default
 #+REVEAL_HLEVEL: 2
 #+REVEAL_EXTRA_CSS: extra.css
-
+#+REVEAL_ROOT: http://www.tsdh.org/js/reveal.js
 
 * The 4 Flowgraph Tasks
 
