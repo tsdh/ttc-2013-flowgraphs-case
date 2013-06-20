@@ -149,3 +149,13 @@ dfNext: "b = a - b;"     --> "return b * c;"
      + how *useful* do you think it is?
      + how *easy to use* does it seem to be?
 
+* Awards
+
+  1. The best overall solution
+  2. The most efficient solution
+  3. The most concise & understandable solution
+  4. The best solution for
+     - Task 1 and 3.1 (M2M)
+     - Task 2 (control flow synthesis)
+     - Task 3 (data flow synthesis)
+     - Task 4 (validation/DSL)
