@@ -12,3 +12,5 @@ models/*.java.xmi
 models/*.ecore
 models/java/
 models/sun/
+postproc/auto/
+postproc/ttc-2013-flowgraphs-case.pag
