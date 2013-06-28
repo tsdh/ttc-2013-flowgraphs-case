@@ -31,9 +31,7 @@
 \title{The TTC 2013 Flowgraphs Case}
 \author{Dipl.-Inform. Tassilo Horn
   \email{\myemail}
-  \institute{University Koblenz-Landau, Campus Koblenz\\
-    Institute for Software Technology\\
-    Universitätsstraße 1, 56070 Koblenz, Germany}}
+  \institute{University Koblenz-Landau, Institute for Software Technology, Germany}}
 \def\titlerunning{The TTC 2013 Flowgraphs Case}
 \def\authorrunning{Tassilo Horn}
 
@@ -59,68 +57,58 @@
 \section{Objective of the Case}
 \label{sec:objective}
 
-The objective of this case is to allow participants to demonstrate their
-transformation tool's flexibility, i.e., to show its usability for a very
-diverse set of tasks requiring different transformation capabilities.  Although
-different capabilities are needed, all tasks are connected by their general
-topic: \emph{analysis and transformation in compiler construction}.
+The objective of this case\footnote{This case's project on github:
+  \url{https://github.com/tsdh/ttc-2013-flowgraphs-case}} is to evaluate the
+flexibility of transformation tools, i.e., to evaluate their usability for
+tasks requiring different capabilities.  Although different capabilities are
+needed, all tasks are connected by their general topic: \emph{analysis and
+  transformation in compiler construction}.
 
 Task~1 deals with a typical model-to-model transformation problem.  Given an
-abstract syntax graph of a Java program conforming to the very detailed
-EMFText\footnote{\url{http://www.emftext.org/index.php/EMFText}} JaMoPP
-metamodel \cite{jamopp09}, a new model, the structure graph of the original
-program, conforming to a much more abstract and simple metamodel has to be
-generated.  Embedded in this task is a model-to-text transformation where parts
-of the abstract Java syntax graph have to be serialized back to Java source
-code.
+abstract syntax graph of a Java program conforming to a very detailed
+metamodel, the structure graph of the original program conforming to a much
+simpler metamodel has to be generated.  Embedded in this task is a
+model-to-text transformation where parts of the Java syntax graph have to be
+serialized back to Java source code.
 
 In task~2, the structure graph resulting from task~1 should be enhanced with
-control flow information, i.e., every statement or expression has to be
-connected with its possible control flow successors as defined by the Java
-semantics \cite{Java7Spec}.  This is an in-place transformation task which is
+control flow information.  This is an in-place transformation task which is
 suited for graph transformation tools but can also be tackled algorithmically.
 
-Task~3 is similar to task~2 from a technical point of view, that is, it is also
-an in-place transformation.  Based on the control flow graph resulting from
-task~2, data flow information has to be synthesized.  This also requires some
-additions to the model-to-model transformation from task~1.  Again, this task
-is suited to be tackled with graph transformations or algorithmically.
+Task~3 is also an in-place transformation.  Based on the control flow graph
+resulting from task~2, data flow information has to be synthesized.  Again,
+this task is suited to be tackled with graph transformations or
+algorithmically.
 
-The context of task~4 is a bit offside the strict transformation context.
-Nevertheless, it tackles the important challenge of model validation.  A simple
-validation DSL should be developed to offload testing to Java developers.
+The context of task~4 is a bit offside the strict transformation context.  A
+simple validation tool and DSL should be developed to offload testing to Java
+developers.
 
 Because every task builds upon the results of previous tasks, the intermediate
 models are also provided to allow participants to defer or skip tasks not
 particulary suited for their tools, or to allow teams for developing solutions
-in parallel.  For this reason, there is no distinction between \emph{core} and
-\emph{extension} tasks.  To participate, only one arbitrary task has to be
-solved, but of course scoring high presumably requires solving more tasks.
-
+in parallel.
 
 \section{Detailed Task Description}
 \label{sec:task-descr}
 
-The case project is available on GitHub\footnote{This case's project:
-  \url{https://github.com/tsdh/ttc-2013-flowgraphs-case}}.
-
-\subsection{Task~1: Structure Graph}
+\subsection*{Task~1: Structure Graph}
 \label{sec:task1-structure-graph}
 
 The first task requires writing a model-to-model transformation.  The source
-models are abstract Java syntax graphs conforming to the JaMoPP metamodel.  The
-JaMoPP metamodel covers the complete syntax of Java 7.  However, to restrict
-the size of the transformation, the elements actually contained in the provided
-source models is limited.  They all contain one compilation unit containing
-exactly one class with exactly one method.  The method may have parameters.  In
-the method's body, there may be local variable declarations, arithmetic
-expressions (only \verb|+|, \verb|-|, \verb|*|, and \verb|/|), assignments,
-unary modification expressions (\verb|i++;| and \verb|i--;|), \verb|return|
-statements, and blocks.  There may be \verb|if|-statements and
-\verb|while|-loops with a boolean expression as condition.  Statements may be
-labeled, and \verb|break|/\verb|continue| may be used with or without target
-label.  The target metamodel of the transformation is depicted in
-Figure~\ref{fig:structure-graph-mm}.
+models are abstract Java syntax graphs conforming to the JaMoPP metamodel
+\cite{jamopp09}.  The JaMoPP metamodel covers the complete syntax of Java 7.
+However, to restrict the size of the transformation, the elements actually
+contained in the provided source models is limited.  They all contain one
+compilation unit containing exactly one class with exactly one method.  The
+method may have parameters.  In the method's body, there may be local variable
+declarations, arithmetic expressions (only \verb|+|, \verb|-|, \verb|*|, and
+\verb|/|), assignments, unary modification expressions (\verb|i++;| and
+\verb|i--;|), \verb|return| statements, and blocks.  There may be
+\verb|if|-statements and \verb|while|-loops with a boolean expression as
+condition.  Statements may be labeled, and \verb|break|/\verb|continue| may be
+used with or without target label.  The target metamodel of the transformation
+is depicted in Figure~\ref{fig:structure-graph-mm}.
 
 \begin{figure}[h!]
   \centering
@@ -148,7 +136,7 @@ With the exception of \verb|Break| and \verb|Continue| objects that might refer
 to a target \verb|Label|, the structure graphs created by the transformation
 are simple trees that reflect the containment hierarchy of the method.
 
-\subsection{Task~2: Control Flow Graph}
+\subsection*{Task~2: Control Flow Graph}
 \label{sec:task2-cf-graph}
 
 This task deals with an in-place transformation problem.  The semantics of the
@@ -205,13 +193,14 @@ statement, and the successor of a \verb|Continue| is the expression of the
 surrounding labeled loop.
 
 
-\subsection{Task~3: Data Flow Graph}
+\subsection*{Task~3: Data Flow Graph}
 \label{sec:task3-df-graph}
 
-In this task, an intra-procedural data flow analysis should be performed.  This
-can be done based on the control flow graph, but one important piece of
-information is missing from it: for every flow instruction, the sets of read
-and written variables have to be known.  Therefore, this task is twofold:
+In this task, an intra-procedural data flow analysis should be performed.  The
+relevant metamodel excerpt is shown in Figure~\ref{fig:data-flow-mm}.  This can
+be done based on the control flow graph, but one important piece of information
+is missing from it: for every flow instruction, the sets of read and written
+variables have to be known.  Therefore, this task is twofold:
 
 \begin{compactenum}
 \item The model-to-model transformation from task~1 has to be extended so that
@@ -222,8 +211,6 @@ and written variables have to be known.  Therefore, this task is twofold:
   takes the control flow graph resulting from applying task~2's transformation
   to the result of the extended java-to-structure-graph transformation.
 \end{compactenum}
-
-The relevant metamodel excerpt is shown in Figure~\ref{fig:data-flow-mm}.
 
 \begin{figure}[h!]
   \centering
@@ -238,17 +225,9 @@ The relevant metamodel excerpt is shown in Figure~\ref{fig:data-flow-mm}.
 For every local variable statement and every method parameter in the JaMoPP
 model, the extended model-to-model transformation has to create a \verb|Var| or
 a \verb|Param| object, respectively.  The \verb|txt| attribute should be set to
-the variable's/parameter's name.
-
-Furthermore, every flow instruction should be connected to the variables it
-writes (the \verb|def| reference) and to the variables it reads (the \verb|use|
-reference).
-
-Thereafter, task~2's control flow transformation has to be applied to the
-result of the extended model-to-model transformation resulting in a structure
-graph where every flow instruction knows the variables/parameters it reads and
-writes, and which also contains the control flow links between flow
-instructions.
+the variable's/parameter's name.  Furthermore, every flow instruction should be
+connected to the variables it writes (the \verb|def| reference) and to the
+variables it reads (the \verb|use| reference).
 
 
 \paragraph{Subtask~3.2.}
@@ -285,7 +264,7 @@ from this task which include control and data flow information are called
 optimization phase in compilers \cite{Ferrante:1987:PDG:24039.24041}.
 
 
-\subsection{Task~4: Validation}
+\subsection*{Task~4: Validation}
 \label{sec:task4-validation}
 
 The fourth task is no strict transformation task.  Instead, the challenge is
