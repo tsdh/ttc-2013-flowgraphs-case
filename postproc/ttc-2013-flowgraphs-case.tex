@@ -42,10 +42,10 @@
 \begin{abstract}
   This case for the Transformation Tool Contest 2013 is about evaluating the
   scope and usability of transformation languages and tools for a set of four
-  tasks requiring very different capabilities.  Two tasks deal with typical
-  model-to-model transformation problems, there's a model-to-text problem,
-  there are two in-place transformation problems, and finally there's a task
-  dealing with validation of models resulting from the transformations.
+  tasks requiring very different capabilities.  One task deals with typical
+  model-to-model transformation problem, there's a model-to-text problem, there
+  are two in-place transformation problems, and finally there's a task dealing
+  with validation of models resulting from the transformations.
 
   The tasks build upon each other, but the transformation case project also
   provides all intermediate models, thus making it possible to skip tasks that
@@ -59,10 +59,10 @@
 
 The objective of this case\footnote{This case's project on github:
   \url{https://github.com/tsdh/ttc-2013-flowgraphs-case}} is to evaluate the
-flexibility of transformation tools, i.e., to evaluate their usability for
+flexibility of transformation tools, i.e., to evaluate their usefulness for
 tasks requiring different capabilities.  Although different capabilities are
 needed, all tasks are connected by their general topic: \emph{analysis and
-  transformation in compiler construction}.
+  transformations in compiler construction}.
 
 Task~1 deals with a typical model-to-model transformation problem.  Given an
 abstract syntax graph of a Java program conforming to a very detailed
@@ -92,7 +92,7 @@ in parallel.
 \section{Detailed Task Description}
 \label{sec:task-descr}
 
-\subsection*{Task~1: Structure Graph}
+\paragraph{Task~1: Structure Graph.}
 \label{sec:task1-structure-graph}
 
 The first task requires writing a model-to-model transformation.  The source
@@ -136,7 +136,7 @@ With the exception of \verb|Break| and \verb|Continue| objects that might refer
 to a target \verb|Label|, the structure graphs created by the transformation
 are simple trees that reflect the containment hierarchy of the method.
 
-\subsection*{Task~2: Control Flow Graph}
+\paragraph{Task~2: Control Flow Graph.}
 \label{sec:task2-cf-graph}
 
 This task deals with an in-place transformation problem.  The semantics of the
@@ -193,7 +193,7 @@ statement, and the successor of a \verb|Continue| is the expression of the
 surrounding labeled loop.
 
 
-\subsection*{Task~3: Data Flow Graph}
+\paragraph{Task~3: Data Flow Graph.}
 \label{sec:task3-df-graph}
 
 In this task, an intra-procedural data flow analysis should be performed.  The
@@ -219,7 +219,7 @@ variables have to be known.  Therefore, this task is twofold:
   \label{fig:data-flow-mm}
 \end{figure}
 
-\paragraph{Subtask~3.1.}
+\subparagraph{Subtask~3.1.}
 \label{sec:subtask-3.1}
 
 For every local variable statement and every method parameter in the JaMoPP
@@ -230,7 +230,7 @@ connected to the variables it writes (the \verb|def| reference) and to the
 variables it reads (the \verb|use| reference).
 
 
-\paragraph{Subtask~3.2.}
+\subparagraph{Subtask~3.2.}
 \label{sec:subtask-3.2}
 
 The model resulting from applying the enhanced model-to-model transformation on
@@ -264,7 +264,7 @@ from this task which include control and data flow information are called
 optimization phase in compilers \cite{Ferrante:1987:PDG:24039.24041}.
 
 
-\subsection*{Task~4: Validation}
+\paragraph{Task~4: Validation.}
 \label{sec:task4-validation}
 
 The fourth task is no strict transformation task.  Instead, the challenge is
