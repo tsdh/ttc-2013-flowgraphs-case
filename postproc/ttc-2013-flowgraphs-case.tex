@@ -143,7 +143,7 @@ This task deals with an in-place transformation problem.  The semantics of the
 Java programming language should be integrated into the structure graphs
 created by the previous transformation.  The task is to perform an
 intra-procedural control flow analysis.  Any instruction should be connected to
-the instruction following it in the control flow.
+the instructions that may follow it in the method's control flow.
 Figure~\ref{fig:control-flow-mm} shows the relevant metamodel excerpt.
 
 \begin{figure}[h!]
@@ -155,7 +155,7 @@ Figure~\ref{fig:control-flow-mm} shows the relevant metamodel excerpt.
 
 Simple statements, expressions, the synthetical exits, methods, \verb|return|,
 and the jump statements \verb|break| and \verb|continue| extend
-\verb|FlowInstr|.  Every flow instruction knows it immediate control flow
+\verb|FlowInstr|.  Every flow instruction knows its immediate control flow
 predecessors (\verb|cfPrev|) and successors (\verb|cfNext|).  It's those links
 the transformation has to synthesize from the structure graph.
 
@@ -164,7 +164,7 @@ Instead, when control flow reaches a block, the first flow instruction in the
 block is the control flow successor of the previous flow instruction.  Since
 blocks may be nested in other blocks, the \emph{first} flow instruction is
 actually the first one reachable by a depth-first search.  These \emph{first}
-semantics apply to whole description of this task.
+semantics apply to the whole description of this task.
 
 In case of a label, the first flow instruction in the labled statement is the
 control flow successor.
@@ -288,13 +288,13 @@ There's no restrictions on the actual syntax except that it should be easy to
 write for a Java programmer.
 
 \begin{lstlisting}[caption={An example validation DSL for result PDGs},label={lst:example-validation}]
-        cfNext: "testMethod()"   --> "int a = 1;"
-        cfNext: "int a = 1;"     --> "int b = 2;"
-        ...
+                cfNext: "testMethod()"   --> "int a = 1;"
+                cfNext: "int a = 1;"     --> "int b = 2;"
+                ...
 
-        dfNext: "int a = 1;"     --> "int c = a + b;"
-        dfNext: "int b = 2;"     --> "int c = a + b;"
-        ...
+                dfNext: "int a = 1;"     --> "int c = a + b;"
+                dfNext: "int b = 2;"     --> "int c = a + b;"
+                ...
 \end{lstlisting}
 
 The requested tools's job is simple.  It has to load a PDG and to read a
@@ -309,14 +309,15 @@ specification also occurs in the model.  If not, it has to print a
 \section{Evaluation}
 \label{sec:evaluation-criteria}
 
-The evaluation of solutions is done in two phases.  Before the workshop,
-there's an open peer review where participants assess the objective criteria
-\emph{completeness}, \emph{correctness}, and \emph{efficiency}.  Furthermore,
-they assign scores for the subjective criteria of the transformation language's
-and tool's \emph{usefulness} and its \emph{ease of use}.  During the workshop,
-all attendants only assign scores for the subjective criteria again.  The
-overall winner is then determined by setting the open peer review scores off
-against the workshop scores.
+The evaluation of solutions has been done in two phases.  Before the workshop,
+there was an open peer review where participants assessed the objective
+criteria \emph{completeness}, \emph{correctness}, and \emph{efficiency}.
+Furthermore, they assigned scores for the subjective criteria of the
+transformation language's and tool's \emph{usefulness} and its \emph{ease of
+  use}.  During the workshop, all attendants only assigned scores for the
+subjective criteria.  The overall winner (the Epsilon solution) was then
+determined by setting the open peer review scores off against the workshop
+scores.
 
 \bibliography{ttc-2013-flowgraphs-case}
 \bibliographystyle{eptcs}
